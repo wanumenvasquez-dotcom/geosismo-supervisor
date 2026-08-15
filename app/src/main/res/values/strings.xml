@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GeoSismo Supervisor</string>
+
+    <!-- Login -->
+    <string name="login_titulo">GeoSismo UD — Supervisión</string>
+    <string name="login_subtitulo">Acceso exclusivo para administradores del sistema.</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_boton">Ingresar</string>
+    <string name="login_servidor">Servidor (URL de tu instalación GeoSismo UD)</string>
+    <string name="login_sin_internet">No hay conexión a internet. Esta app siempre necesita internet.</string>
+    <string name="login_no_admin">Esta cuenta no tiene permisos de administrador. Pide que te asignen el rol \'admin\' en la base de datos.</string>
+
+    <!-- Home -->
+    <string name="home_titulo">Panel de Supervisión</string>
+    <string name="home_subtitulo">Herramientas para el ingeniero experto que valida el trabajo de campo</string>
+    <string name="home_voluntarios_titulo">✅ Aprobar voluntarios</string>
+    <string name="home_voluntarios_desc">Revisa y resuelve las postulaciones de ingenieros de campo pendientes</string>
+    <string name="home_proximamente_titulo">🔒 Próximamente</string>
+    <string name="home_proximamente_desc">Auditoría de evaluaciones, gestión de usuarios, moderación de reportes y exportación de datos</string>
+
+    <!-- Voluntarios pendientes -->
+    <string name="voluntarios_titulo">Postulaciones pendientes</string>
+    <string name="voluntarios_vacio">No hay postulaciones pendientes por resolver ✓</string>
+    <string name="voluntarios_aprobar">Aprobar</string>
+    <string name="voluntarios_rechazar">Rechazar</string>
+    <string name="voluntarios_confirmar_aprobar">¿Aprobar a %1$s como ingeniero voluntario? Podrá evaluar reportes en la app de campo de inmediato.</string>
+    <string name="voluntarios_confirmar_rechazar">¿Rechazar la postulación de %1$s? Esta acción no se puede deshacer.</string>
+
+    <!-- Ajustes -->
+    <string name="ajustes_titulo">Ajustes</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Comunes -->
+    <string name="cerrar">Cerrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="confirmar">Confirmar</string>
+</resources>

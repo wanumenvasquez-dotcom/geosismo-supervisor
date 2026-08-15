@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ink">#171B22</color>
+    <color name="paper">#F4F2EC</color>
+    <color name="paper_raised">#FFFFFF</color>
+    <color name="night">#12161D</color>
+    <color name="night_raised">#1B212B</color>
+    <color name="line">#DCD8CC</color>
+
+    <!-- Acento distintivo de "Supervisor": azul acero, transmite
+         autoridad/verificación. La app de campo usa ámbar; esta usa
+         azul, para que a simple vista se note que es la otra app. -->
+    <color name="acento">#4C7EBF</color>
+    <color name="acento_deep">#2F5C99</color>
+
+    <color name="verde">#3F9142</color>
+    <color name="amarillo">#D8A521</color>
+    <color name="rojo">#C94A3C</color>
+    <color name="verde_bg">#E7F2E3</color>
+    <color name="amarillo_bg">#FAF1D9</color>
+    <color name="rojo_bg">#F9E4E0</color>
+    <color name="gris_texto">#4B5361</color>
+    <color name="white">#FFFFFF</color>
+</resources>

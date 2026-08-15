@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.GeoSismoSupervisor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/night</item>
+        <item name="colorPrimaryDark">@color/night</item>
+        <item name="colorAccent">@color/acento</item>
+        <item name="colorSecondary">@color/acento</item>
+        <item name="android:windowBackground">@color/paper</item>
+        <item name="android:statusBarColor">@color/night</item>
+    </style>
+</resources>
