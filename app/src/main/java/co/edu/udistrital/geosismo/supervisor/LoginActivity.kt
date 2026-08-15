@@ -8,7 +8,6 @@ import co.edu.udistrital.geosismo.supervisor.data.SessionManager
 import co.edu.udistrital.geosismo.supervisor.databinding.ActivityLoginBinding
 import co.edu.udistrital.geosismo.supervisor.repository.AdminRepository
 import co.edu.udistrital.geosismo.supervisor.repository.ResultadoLogin
-import co.edu.udistrital.geosismo.supervisor.util.ConnectivityUtil
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -25,35 +24,33 @@ class LoginActivity : AppCompatActivity() {
         session = SessionManager(this)
         repo = AdminRepository(this)
 
+        // El servidor ya no se pregunta: queda fijo en la URL de producción.
+        if (session.baseUrl.isBlank()) {
+            session.baseUrl = BuildConfig.DEFAULT_BASE_URL
+        }
+
         if (session.estaLogueado && session.esAdmin) {
             irAHome()
             return
         }
 
-        binding.inputServidor.setText(
-            session.baseUrl.ifBlank { BuildConfig.DEFAULT_BASE_URL }
-        )
-
         binding.btnLogin.setOnClickListener { intentarLogin() }
     }
 
     private fun intentarLogin() {
-        val servidor = binding.inputServidor.text.toString().trim()
         val email = binding.inputEmail.text.toString().trim()
         val password = binding.inputPassword.text.toString()
 
         ocultarError()
 
-        if (servidor.isBlank() || email.isBlank() || password.isBlank()) {
-            mostrarError("Completa la URL del servidor, correo y contraseña.")
-            return
-        }
-        if (!ConnectivityUtil.hayInternet(this)) {
-            mostrarError(getString(R.string.login_sin_internet))
+        if (email.isBlank() || password.isBlank()) {
+            mostrarError("Completa correo y contraseña.")
             return
         }
 
-        session.baseUrl = servidor
+        // Sin chequeo previo de "hay internet": esa validación de Android
+        // puede dar falso negativo. Se intenta el login directamente y se
+        // muestra el error real si la conexión de verdad falla.
         mostrarCargando(true)
 
         lifecycleScope.launch {
