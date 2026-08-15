@@ -46,26 +46,6 @@
             android:visibility="gone"
             android:layout_marginBottom="14dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_servidor"
-            android:textColor="#9AA3B0"
-            android:textSize="12sp"
-            android:layout_marginBottom="4dp" />
-
-        <EditText
-            android:id="@+id/inputServidor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="https://tudominio.com/"
-            android:textColorHint="#6B7280"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_campo_oscuro"
-            android:inputType="textUri"
-            android:padding="12dp"
-            android:layout_marginBottom="16dp" />
-
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
