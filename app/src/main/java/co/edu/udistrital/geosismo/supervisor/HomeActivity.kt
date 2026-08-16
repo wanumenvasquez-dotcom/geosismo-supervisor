@@ -31,11 +31,32 @@ class HomeActivity : AppCompatActivity() {
         binding.cardVoluntarios.setOnClickListener {
             startActivity(Intent(this, VoluntariosPendientesActivity::class.java))
         }
+        binding.cardSolicitudes.setOnClickListener {
+            startActivity(Intent(this, SolicitudesActivity::class.java))
+        }
     }
 
     override fun onResume() {
         super.onResume()
         cargarConteo()
+        cargarConteoSolicitudes()
+    }
+
+    private fun cargarConteoSolicitudes() {
+        lifecycleScope.launch {
+            try {
+                val resp = ApiClient.getApiService(this@HomeActivity).conteoSolicitudesPendientes()
+                val body = resp.body()
+                if (resp.isSuccessful && body?.ok == true && body.pendientes > 0) {
+                    binding.badgeSolicitudes.text = body.pendientes.toString()
+                    binding.badgeSolicitudes.visibility = android.view.View.VISIBLE
+                } else {
+                    binding.badgeSolicitudes.visibility = android.view.View.GONE
+                }
+            } catch (e: Exception) {
+                binding.badgeSolicitudes.visibility = android.view.View.GONE
+            }
+        }
     }
 
     private fun cargarConteo() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.GeoSismoSupervisor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.GeoSismoSupervisor" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/night</item>
         <item name="colorPrimaryDark">@color/night</item>
         <item name="colorAccent">@color/acento</item>

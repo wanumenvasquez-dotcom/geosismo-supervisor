@@ -15,7 +15,7 @@ android {
         versionName = "1.0"
 
         // URL base de tu backend PHP. El usuario también puede
-        // cambiarla dentro de la app en la pantalla de login.        
+        // cambiarla dentro de la app en la pantalla de login.
         buildConfigField("String", "DEFAULT_BASE_URL", "\"https://sistematizaciondedatos.com/geosismo/\"")
     }
 

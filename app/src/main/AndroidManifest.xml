@@ -26,6 +26,7 @@
 
         <activity android:name=".HomeActivity" android:exported="false" />
         <activity android:name=".VoluntariosPendientesActivity" android:exported="false" />
+        <activity android:name=".SolicitudesActivity" android:exported="false" />
         <activity android:name=".SettingsActivity" android:exported="false" android:label="@string/ajustes_titulo" />
 
     </application>

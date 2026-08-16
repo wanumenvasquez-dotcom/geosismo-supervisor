@@ -41,3 +41,38 @@ data class ConteoPendientesResponse(
     val pendientes: Int = 0,
     val error: String? = null
 )
+
+// ------------------------------------------------------------------
+// Solicitudes de contacto (recibidas de las apps de ciudadanos/ingenieros)
+// ------------------------------------------------------------------
+
+data class SolicitudDto(
+    val id: Int,
+    val asunto: String,
+    val mensaje: String,
+    val archivo_adjunto: String? = null,
+    val estado: String,
+    val respuesta: String? = null,
+    val created_at: String,
+    val respondida_en: String? = null,
+    val usuario_nombre: String? = null,
+    val usuario_email: String? = null
+)
+
+data class ListaSolicitudesResponse(
+    val ok: Boolean,
+    val solicitudes: List<SolicitudDto> = emptyList(),
+    val error: String? = null
+)
+
+data class ConteoSolicitudesPendientesResponse(
+    val ok: Boolean,
+    val pendientes: Int = 0,
+    val error: String? = null
+)
+
+data class ResponderSolicitudResponse(
+    val ok: Boolean,
+    val mensaje: String? = null,
+    val error: String? = null
+)

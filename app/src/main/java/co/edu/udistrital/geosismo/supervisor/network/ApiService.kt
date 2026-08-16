@@ -1,8 +1,11 @@
 package co.edu.udistrital.geosismo.supervisor.network
 
 import co.edu.udistrital.geosismo.supervisor.network.model.ConteoPendientesResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ConteoSolicitudesPendientesResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ListaSolicitudesResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.LoginResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ResolverVoluntarioResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ResponderSolicitudResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.VoluntariosPendientesResponse
 import retrofit2.Response
 import retrofit2.http.Field
@@ -13,8 +16,8 @@ import retrofit2.http.Query
 
 /**
  * Coincide con los endpoints existentes de GeoSismo UD:
- * api/auth.php (login, ya existente) y api/admin.php (nuevo, Fase 1).
- * No requiere ningún otro cambio en el servidor.
+ * api/auth.php (login), api/admin.php (voluntarios) y api/solicitudes.php
+ * (bandeja de contacto). No requiere ningún otro cambio en el servidor.
  */
 interface ApiService {
 
@@ -43,4 +46,32 @@ interface ApiService {
     suspend fun conteoPendientes(
         @Query("accion") accion: String = "conteo_pendientes"
     ): Response<ConteoPendientesResponse>
+
+    // ---------------- Solicitudes de contacto ----------------
+
+    @GET("api/solicitudes.php")
+    suspend fun todasLasSolicitudes(
+        @Query("accion") accion: String = "todas",
+        @Query("estado") estado: String? = null
+    ): Response<ListaSolicitudesResponse>
+
+    @GET("api/solicitudes.php")
+    suspend fun conteoSolicitudesPendientes(
+        @Query("accion") accion: String = "conteo_pendientes"
+    ): Response<ConteoSolicitudesPendientesResponse>
+
+    @FormUrlEncoded
+    @POST("api/solicitudes.php")
+    suspend fun responderSolicitud(
+        @Field("accion") accion: String = "responder",
+        @Field("id") id: Int,
+        @Field("respuesta") respuesta: String
+    ): Response<ResponderSolicitudResponse>
+
+    @FormUrlEncoded
+    @POST("api/solicitudes.php")
+    suspend fun cerrarSolicitud(
+        @Field("accion") accion: String = "cerrar",
+        @Field("id") id: Int
+    ): Response<ResponderSolicitudResponse>
 }

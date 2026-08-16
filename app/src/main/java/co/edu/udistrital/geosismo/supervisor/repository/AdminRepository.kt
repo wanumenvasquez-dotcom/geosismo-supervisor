@@ -3,7 +3,10 @@ package co.edu.udistrital.geosismo.supervisor.repository
 import android.content.Context
 import co.edu.udistrital.geosismo.supervisor.data.SessionManager
 import co.edu.udistrital.geosismo.supervisor.network.ApiClient
+import co.edu.udistrital.geosismo.supervisor.util.ErrorRed
+import co.edu.udistrital.geosismo.supervisor.util.mensajeDeError
 import co.edu.udistrital.geosismo.supervisor.network.model.VoluntarioPendienteDto
+import co.edu.udistrital.geosismo.supervisor.network.model.SolicitudDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -39,10 +42,10 @@ class AdminRepository(private val context: Context) {
                 session.rolUsuario = body.usuario.rol
                 ResultadoLogin.Exito(body.usuario.nombre, body.usuario.rol)
             } else {
-                ResultadoLogin.Fallo(body?.error ?: "No se pudo iniciar sesión (código ${resp.code()}).")
+                ResultadoLogin.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo iniciar sesión (código ${resp.code()}).")
             }
         } catch (e: Exception) {
-            ResultadoLogin.Fallo("Sin conexión al servidor. Verifica la URL o tu internet.")
+            ResultadoLogin.Fallo(ErrorRed.explicar(e))
         }
     }
 
@@ -54,10 +57,10 @@ class AdminRepository(private val context: Context) {
                 resp.isSuccessful && body?.ok == true -> Resultado.Exito(body.voluntarios)
                 resp.code() == 401 -> Resultado.Fallo("Tu sesión expiró. Cierra sesión y vuelve a iniciar.")
                 resp.code() == 403 -> Resultado.Fallo("Esta cuenta no tiene permisos de administrador.")
-                else -> Resultado.Fallo(body?.error ?: "No se pudo cargar la lista.")
+                else -> Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo cargar la lista.")
             }
         } catch (e: Exception) {
-            Resultado.Fallo("Sin conexión al servidor.")
+            Resultado.Fallo(ErrorRed.explicar(e))
         }
     }
 
@@ -69,10 +72,49 @@ class AdminRepository(private val context: Context) {
                 resp.isSuccessful && body?.ok == true -> Resultado.Exito(body.mensaje ?: "Listo.")
                 resp.code() == 409 -> Resultado.Fallo("Esta postulación ya fue resuelta por otra persona.")
                 resp.code() == 401 || resp.code() == 403 -> Resultado.Fallo("No tienes permisos, o tu sesión expiró.")
-                else -> Resultado.Fallo(body?.error ?: "No se pudo procesar la decisión.")
+                else -> Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo procesar la decisión.")
             }
         } catch (e: Exception) {
-            Resultado.Fallo("Sin conexión al servidor.")
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Solicitudes de contacto (bandeja del administrador)
+    // ------------------------------------------------------------------
+    suspend fun todasLasSolicitudes(estado: String? = null): Resultado<List<SolicitudDto>> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.todasLasSolicitudes(estado = estado)
+            val body = resp.body()
+            when {
+                resp.isSuccessful && body?.ok == true -> Resultado.Exito(body.solicitudes)
+                resp.code() == 403 -> Resultado.Fallo("Esta cuenta no tiene permisos de administrador.")
+                else -> Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudieron cargar las solicitudes.")
+            }
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
+    suspend fun responderSolicitud(id: Int, respuesta: String): Resultado<String> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.responderSolicitud(id = id, respuesta = respuesta)
+            val body = resp.body()
+            if (resp.isSuccessful && body?.ok == true) Resultado.Exito(body.mensaje ?: "Respuesta enviada.")
+            else Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo enviar la respuesta.")
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
+    suspend fun cerrarSolicitud(id: Int): Resultado<String> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.cerrarSolicitud(id = id)
+            val body = resp.body()
+            if (resp.isSuccessful && body?.ok == true) Resultado.Exito(body.mensaje ?: "Solicitud cerrada.")
+            else Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo cerrar la solicitud.")
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
         }
     }
 }
