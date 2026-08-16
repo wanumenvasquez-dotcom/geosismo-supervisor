@@ -4,6 +4,7 @@
 
     <!-- Login -->
     <string name="login_titulo">GeoSismo UD — Supervisión</string>
+    <string name="escudo_udfjc_desc">Escudo de la Universidad Distrital Francisco José de Caldas</string>
     <string name="login_subtitulo">Acceso exclusivo para administradores del sistema.</string>
     <string name="login_email">Correo electrónico</string>
     <string name="login_password">Contraseña</string>

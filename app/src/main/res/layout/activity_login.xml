@@ -12,12 +12,30 @@
         android:padding="28dp"
         android:gravity="center_vertical">
 
-        <TextView
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/escudo_udfjc_blanco"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/escudo_udfjc_desc"
+            android:layout_marginBottom="10dp" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🛡️📍"
-            android:textSize="40sp"
-            android:layout_marginBottom="14dp" />
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18dp">
+            <View
+                android:layout_width="28dp"
+                android:layout_height="3dp"
+                android:background="@color/bogota_amarillo" />
+            <View
+                android:layout_width="28dp"
+                android:layout_height="3dp"
+                android:background="@color/bogota_rojo" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

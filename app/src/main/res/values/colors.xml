@@ -21,4 +21,9 @@
     <color name="rojo_bg">#F9E4E0</color>
     <color name="gris_texto">#4B5361</color>
     <color name="white">#FFFFFF</color>
+
+    <!-- Colores institucionales de la bandera de Bogotá — SOLO para
+         detalles de marca, nunca para estados de urgencia. -->
+    <color name="bogota_amarillo">#FFC72C</color>
+    <color name="bogota_rojo">#C8102E</color>
 </resources>
