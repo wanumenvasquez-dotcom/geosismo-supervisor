@@ -1,15 +1,14 @@
 package co.edu.udistrital.geosismo.supervisor
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.udistrital.geosismo.supervisor.databinding.ActivityListaGenericaBinding
-import co.edu.udistrital.geosismo.supervisor.network.model.EvaluacionAdminDto
 import co.edu.udistrital.geosismo.supervisor.repository.AdminRepository
 import co.edu.udistrital.geosismo.supervisor.repository.Resultado
 import co.edu.udistrital.geosismo.supervisor.ui.EvaluacionAdapter
@@ -22,7 +21,8 @@ class EvaluacionesActivity : AppCompatActivity() {
     private lateinit var adapter: EvaluacionAdapter
 
     private val filtros = listOf(
-        "" to "Todas", "sin_revisar" to "Sin revisar", "certificada" to "Certificadas", "objetada" to "Objetadas"
+        "" to "Todas", "sin_revisar" to "Sin revisar", "aplazada" to "Aplazadas",
+        "certificada" to "Certificadas", "objetada" to "Objetadas"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +34,9 @@ class EvaluacionesActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
         repo = AdminRepository(this)
 
-        adapter = EvaluacionAdapter(
-            onCertificar = { evaluacion, comentario -> decidir(evaluacion, "certificada", comentario) },
-            onObjetar = { evaluacion, comentario -> decidir(evaluacion, "objetada", comentario) }
-        )
+        adapter = EvaluacionAdapter { evaluacion ->
+            startActivity(Intent(this, DetalleEvaluacionActivity::class.java).putExtra("evaluacion_id", evaluacion.id))
+        }
         binding.recyclerLista.layoutManager = LinearLayoutManager(this)
         binding.recyclerLista.adapter = adapter
         binding.txtVacio.text = getString(R.string.evaluaciones_vacio)
@@ -50,6 +49,12 @@ class EvaluacionesActivity : AppCompatActivity() {
         binding.swipeRefresh.setOnRefreshListener { cargar() }
 
         cargar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Vuelve a cargar por si se tomó una decisión en la pantalla de detalle
+        if (::adapter.isInitialized && adapter.currentList.isNotEmpty()) cargar()
     }
 
     private fun cargar() {
@@ -70,15 +75,6 @@ class EvaluacionesActivity : AppCompatActivity() {
             }
             binding.progressLista.visibility = View.GONE
             binding.swipeRefresh.isRefreshing = false
-        }
-    }
-
-    private fun decidir(evaluacion: EvaluacionAdminDto, decision: String, comentario: String) {
-        lifecycleScope.launch {
-            when (val resultado = repo.certificarEvaluacion(evaluacion.id, decision, comentario)) {
-                is Resultado.Exito -> { Toast.makeText(this@EvaluacionesActivity, resultado.datos, Toast.LENGTH_LONG).show(); cargar() }
-                is Resultado.Fallo -> Toast.makeText(this@EvaluacionesActivity, resultado.mensaje, Toast.LENGTH_LONG).show()
-            }
         }
     }
 }

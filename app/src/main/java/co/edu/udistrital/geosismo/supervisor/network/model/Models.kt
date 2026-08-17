@@ -132,6 +132,23 @@ data class ListaEvaluacionesResponse(
     val error: String? = null
 )
 
+data class EvidenciaAdminDto(
+    val id: Int,
+    val tipo: String,
+    val ruta_archivo: String,
+    val descripcion: String? = null,
+    val elemento_estructural: String? = null,
+    val created_at: String
+)
+
+data class DetalleEvaluacionResponse(
+    val ok: Boolean,
+    val evaluacion: EvaluacionAdminDto? = null,
+    val evidencias: List<EvidenciaAdminDto> = emptyList(),
+    val inspeccion: InspeccionAdminDto? = null,
+    val error: String? = null
+)
+
 data class CertificarEvaluacionResponse(
     val ok: Boolean,
     val mensaje: String? = null,

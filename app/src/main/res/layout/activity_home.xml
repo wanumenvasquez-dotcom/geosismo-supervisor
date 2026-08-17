@@ -214,6 +214,40 @@
                     android:text="@string/home_inspecciones_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
             </LinearLayout>
 
+            <!-- Guía técnica en PDF -->
+            <LinearLayout
+                android:id="@+id/cardGuiaTecnica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_guia_tecnica_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_guia_tecnica_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Créditos -->
+            <LinearLayout
+                android:id="@+id/cardCreditos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_creditos_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_creditos_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -4,8 +4,6 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,9 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import co.edu.udistrital.geosismo.supervisor.R
 import co.edu.udistrital.geosismo.supervisor.network.model.EvaluacionAdminDto
 
+/**
+ * Lista de evaluaciones para auditoría. A propósito NO tiene botones de
+ * aprobar/objetar aquí — el administrador siempre debe entrar a ver el
+ * trabajo completo (fotos + inspección técnica) antes de poder decidir.
+ */
 class EvaluacionAdapter(
-    private val onCertificar: (EvaluacionAdminDto, String) -> Unit,
-    private val onObjetar: (EvaluacionAdminDto, String) -> Unit
+    private val onClick: (EvaluacionAdminDto) -> Unit
 ) : ListAdapter<EvaluacionAdminDto, EvaluacionAdapter.ViewHolder>(DIFF) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,7 +26,7 @@ class EvaluacionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), onCertificar, onObjetar)
+        holder.bind(getItem(position), onClick)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,12 +36,8 @@ class EvaluacionAdapter(
         private val txtIngeniero: TextView = itemView.findViewById(R.id.txtIngeniero)
         private val txtObservaciones: TextView = itemView.findViewById(R.id.txtObservaciones)
         private val txtComentarioAuditoria: TextView = itemView.findViewById(R.id.txtComentarioAuditoria)
-        private val contAcciones: View = itemView.findViewById(R.id.contAcciones)
-        private val inputComentario: EditText = itemView.findViewById(R.id.inputComentario)
-        private val btnCertificar: Button = itemView.findViewById(R.id.btnCertificar)
-        private val btnObjetar: Button = itemView.findViewById(R.id.btnObjetar)
 
-        fun bind(e: EvaluacionAdminDto, onCertificar: (EvaluacionAdminDto, String) -> Unit, onObjetar: (EvaluacionAdminDto, String) -> Unit) {
+        fun bind(e: EvaluacionAdminDto, onClick: (EvaluacionAdminDto) -> Unit) {
             val colorHex = when (e.color_clasificacion) { "verde" -> "#3F9142"; "rojo" -> "#C94A3C"; else -> "#D8A521" }
             tagColor.text = "  ${e.color_clasificacion.uppercase()} · ${e.nivel_dano}  "
             tagColor.setBackgroundColor(Color.parseColor(colorHex))
@@ -47,6 +45,7 @@ class EvaluacionAdapter(
             val (auditLabel, auditColor) = when (e.estado_auditoria) {
                 "certificada" -> "Certificada" to "#3F9142"
                 "objetada" -> "Objetada" to "#C94A3C"
+                "aplazada" -> "Aplazada" to "#D8A521"
                 else -> "Sin revisar" to "#4B5361"
             }
             pillAuditoria.text = auditLabel
@@ -63,11 +62,7 @@ class EvaluacionAdapter(
                 txtComentarioAuditoria.visibility = View.GONE
             }
 
-            contAcciones.visibility = if (e.estado_auditoria == "sin_revisar") View.VISIBLE else View.GONE
-            inputComentario.setText("")
-
-            btnCertificar.setOnClickListener { onCertificar(e, inputComentario.text.toString().trim()) }
-            btnObjetar.setOnClickListener { onObjetar(e, inputComentario.text.toString().trim()) }
+            itemView.setOnClickListener { onClick(e) }
         }
     }
 

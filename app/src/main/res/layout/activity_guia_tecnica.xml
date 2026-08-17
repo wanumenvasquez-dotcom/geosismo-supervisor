@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/paper">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/night"
+        app:title="@string/guia_tecnica_titulo"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📄"
+            android:textSize="48sp"
+            android:gravity="center"
+            android:layout_marginBottom="14dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guía Técnica para Inspección de Edificaciones Después de un Sismo"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/ink"
+            android:gravity="center"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IDIGER · Asociación Colombiana de Ingeniería Sísmica (AIS) · Alcaldía Mayor de Bogotá — Manual de campo, cuarta edición (2018)"
+            android:textSize="12sp"
+            android:textColor="@color/gris_texto"
+            android:gravity="center"
+            android:layout_marginBottom="28dp" />
+
+        <Button
+            android:id="@+id/btnVer"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="👁️ Ver la guía"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:backgroundTint="@color/acento"
+            android:textColor="@color/ink"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="📤 Enviar a alguien"
+            android:textAllCaps="false"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="La guía está incluida en la app — funciona sin conexión a internet."
+            android:textSize="11sp"
+            android:textColor="@color/gris_texto"
+            android:gravity="center"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+</LinearLayout>

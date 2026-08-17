@@ -52,6 +52,12 @@ class HomeActivity : AppCompatActivity() {
         binding.cardInspecciones.setOnClickListener {
             startActivity(Intent(this, InspeccionesActivity::class.java))
         }
+        binding.cardGuiaTecnica.setOnClickListener {
+            startActivity(Intent(this, GuiaTecnicaActivity::class.java))
+        }
+        binding.cardCreditos.setOnClickListener {
+            startActivity(Intent(this, CreditosActivity::class.java))
+        }
     }
 
     override fun onResume() {

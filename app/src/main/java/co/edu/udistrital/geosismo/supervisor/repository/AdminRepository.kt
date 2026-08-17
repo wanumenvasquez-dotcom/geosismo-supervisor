@@ -162,6 +162,17 @@ class AdminRepository(private val context: Context) {
         }
     }
 
+    suspend fun evaluacionDetalle(id: Int): Resultado<co.edu.udistrital.geosismo.supervisor.network.model.DetalleEvaluacionResponse> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.evaluacionDetalle(id = id)
+            val body = resp.body()
+            if (resp.isSuccessful && body?.ok == true) Resultado.Exito(body)
+            else Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo cargar el detalle.")
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
     suspend fun certificarEvaluacion(evaluacionId: Int, decision: String, comentario: String): Resultado<String> = withContext(Dispatchers.IO) {
         try {
             val resp = api.certificarEvaluacion(evaluacionId = evaluacionId, decision = decision, comentario = comentario)

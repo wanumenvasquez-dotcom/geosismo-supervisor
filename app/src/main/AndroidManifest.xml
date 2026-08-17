@@ -29,6 +29,9 @@
         <activity android:name=".SolicitudesActivity" android:exported="false" />
         <activity android:name=".UsuariosActivity" android:exported="false" />
         <activity android:name=".EvaluacionesActivity" android:exported="false" />
+        <activity android:name=".DetalleEvaluacionActivity" android:exported="false" />
+        <activity android:name=".CreditosActivity" android:exported="false" />
+        <activity android:name=".GuiaTecnicaActivity" android:exported="false" />
         <activity android:name=".ReportesModeracionActivity" android:exported="false" />
         <activity android:name=".ExportarActivity" android:exported="false" />
         <activity android:name=".DashboardActivity" android:exported="false" />

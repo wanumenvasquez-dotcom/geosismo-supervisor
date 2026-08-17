@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/paper">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/night"
+        app:title="@string/creditos_titulo"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/escudo_udfjc_negro"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/escudo_udfjc_desc" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Universidad Distrital Francisco José de Caldas"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/ink"
+                android:gravity="center"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Facultad Tecnológica"
+                android:textSize="14sp"
+                android:textColor="@color/gris_texto"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <View android:layout_width="60dp" android:layout_height="2dp" android:background="@color/acento" android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Grupos de investigación"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="@color/acento_deep"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="METIS  ·  GIDPAD"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/ink"
+                android:gravity="center"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Desarrollo"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="@color/acento_deep"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Investigador Luis Felipe Wanumen Silva"
+                android:textSize="15sp"
+                android:textColor="@color/ink"
+                android:gravity="center"
+                android:layout_marginBottom="28dp" />
+
+            <View android:layout_width="60dp" android:layout_height="2dp" android:background="@color/line" android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agradecimientos"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="@color/acento_deep"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A la Universidad Distrital Francisco José de Caldas, al Gobierno Nacional y a la Alcaldía, por apoyar estos esfuerzos."
+                android:textSize="14sp"
+                android:textColor="@color/gris_texto"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

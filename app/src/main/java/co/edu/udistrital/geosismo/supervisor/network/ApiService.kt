@@ -81,6 +81,12 @@ interface ApiService {
         @Query("estado_auditoria") estadoAuditoria: String? = null
     ): Response<ListaEvaluacionesResponse>
 
+    @GET("api/admin.php")
+    suspend fun evaluacionDetalle(
+        @Query("accion") accion: String = "evaluacion_detalle",
+        @Query("id") id: Int
+    ): Response<co.edu.udistrital.geosismo.supervisor.network.model.DetalleEvaluacionResponse>
+
     @FormUrlEncoded
     @POST("api/admin.php")
     suspend fun certificarEvaluacion(

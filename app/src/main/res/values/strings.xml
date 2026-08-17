@@ -30,6 +30,12 @@
     <string name="home_dashboard_desc">Estadísticas generales del evento</string>
     <string name="home_inspecciones_titulo">📋 Inspecciones técnicas</string>
     <string name="home_inspecciones_desc">Revisa las inspecciones de 8 pasos registradas por los ingenieros</string>
+    <string name="creditos_titulo">Créditos</string>
+    <string name="home_creditos_titulo">🎓 Créditos</string>
+    <string name="home_creditos_desc">Universidad Distrital, grupos de investigación y desarrollo</string>
+    <string name="home_guia_tecnica_titulo">📄 Guía técnica de inspección</string>
+    <string name="home_guia_tecnica_desc">Consúltala o envíala a quien la necesite</string>
+    <string name="guia_tecnica_titulo">Guía técnica para inspección de edificaciones</string>
     <string name="inspecciones_titulo">Inspecciones técnicas</string>
     <string name="inspecciones_vacio">Aún no hay inspecciones técnicas registradas.</string>
 

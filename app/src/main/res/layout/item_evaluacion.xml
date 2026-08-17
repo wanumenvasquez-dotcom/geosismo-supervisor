@@ -5,7 +5,9 @@
     android:orientation="vertical"
     android:background="@drawable/bg_card"
     android:padding="16dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +58,9 @@
         android:layout_height="wrap_content"
         android:textSize="13sp"
         android:textColor="@color/ink"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:maxLines="2"
+        android:ellipsize="end" />
 
     <TextView
         android:id="@+id/txtComentarioAuditoria"
@@ -67,51 +71,13 @@
         android:layout_marginTop="8dp"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/contAcciones"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="12dp">
+        android:text="👁️ Ver evaluación completa (fotos + inspección) →"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/acento"
+        android:layout_marginTop="10dp" />
 
-        <EditText
-            android:id="@+id/inputComentario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Comentario de auditoría (opcional)"
-            android:background="@drawable/bg_campo"
-            android:textColor="@color/ink"
-            android:textColorHint="@color/gris_texto"
-            android:inputType="textMultiLine"
-            android:minLines="2"
-            android:padding="10dp"
-            android:layout_marginBottom="8dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btnCertificar"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="6dp"
-                android:text="@string/evaluaciones_certificar"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:backgroundTint="@color/verde"
-                android:textColor="@color/white" />
-            <Button
-                android:id="@+id/btnObjetar"
-                android:layout_width="0dp"
-                android:layout_height="42dp"
-                android:layout_weight="1"
-                android:text="@string/evaluaciones_objetar"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:backgroundTint="@color/rojo"
-                android:textColor="@color/white" />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>
