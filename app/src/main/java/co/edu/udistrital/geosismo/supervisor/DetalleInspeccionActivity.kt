@@ -1,10 +1,14 @@
 package co.edu.udistrital.geosismo.supervisor
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import co.edu.udistrital.geosismo.supervisor.data.SessionManager
 import co.edu.udistrital.geosismo.supervisor.databinding.ActivityDetalleInspeccionBinding
 import co.edu.udistrital.geosismo.supervisor.network.model.InspeccionAdminDto
 import co.edu.udistrital.geosismo.supervisor.ui.InspeccionSeleccionada
@@ -12,12 +16,14 @@ import co.edu.udistrital.geosismo.supervisor.ui.InspeccionSeleccionada
 class DetalleInspeccionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalleInspeccionBinding
+    private lateinit var session: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetalleInspeccionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.setNavigationOnClickListener { finish() }
+        session = SessionManager(this)
 
         val insp = InspeccionSeleccionada.actual
         if (insp == null) {
@@ -39,19 +45,25 @@ class DetalleInspeccionActivity : AppCompatActivity() {
             else -> "🟡 AMARILLO — Acceso restringido / evaluación adicional"
         }
         agregarPill(etiquetaClasif, colorHex)
+        agregarTexto("⚠️ Evaluación PRELIMINAR — no es una certificación estructural definitiva.", esMeta = true)
 
         agregarTitulo(insp.reporte_titulo)
         agregarTexto("Inspeccionado por ${insp.ingeniero_nombre} · ${insp.fecha_inspeccion}", esMeta = true)
 
         seccion("1) UBICACIÓN Y DATOS GENERALES")
+        campo("ID de la edificación", insp.id_edificacion)
         campo("Dirección verificada", insp.direccion_verificada)
         campo("Firma del inspector", insp.firma_inspector)
+        if (!insp.foto_general.isNullOrBlank()) {
+            enlaceFoto("📷 Ver foto general de la edificación", insp.foto_general)
+        }
 
         seccion("2) CARACTERIZACIÓN DE LA EDIFICACIÓN")
         campo("Uso", insp.uso_edificacion)
         campo("Número de pisos", insp.numero_pisos?.toString())
         campo("Sistema estructural", insp.sistema_estructural)
         campo("Edad aproximada", insp.edad_aproximada)
+        campo("Tipo de cubierta", insp.tipo_cubierta)
         campo("Ocupación al momento del sismo", insp.ocupacion_momento_sismo)
 
         seccion("3) EVALUACIÓN EXTERIOR")
@@ -62,7 +74,17 @@ class DetalleInspeccionActivity : AppCompatActivity() {
 
         seccion("4) EVALUACIÓN INTERIOR")
         campo("¿Acceso seguro?", if (insp.acceso_seguro == "si") "Sí" else "No")
-        campo("Columnas, vigas, muros, losas", insp.estado_elementos_int)
+        // Inspecciones nuevas traen el desglose por elemento; las anteriores
+        // a esta actualización solo tienen el campo combinado antiguo.
+        if (!insp.danos_columnas.isNullOrBlank() || !insp.danos_vigas.isNullOrBlank() ||
+            !insp.danos_muros.isNullOrBlank() || !insp.danos_losas.isNullOrBlank()) {
+            campo("Daños en columnas", insp.danos_columnas)
+            campo("Daños en vigas", insp.danos_vigas)
+            campo("Daños en muros", insp.danos_muros)
+            campo("Daños en losas", insp.danos_losas)
+        } else {
+            campo("Columnas, vigas, muros, losas", insp.estado_elementos_int)
+        }
         campo("Escaleras", insp.estado_escaleras)
         campo("Daños no estructurales (interior)", insp.danos_no_estructurales_int)
 
@@ -105,6 +127,25 @@ class DetalleInspeccionActivity : AppCompatActivity() {
             setTextColor(Color.parseColor("#171B22"))
             textSize = 14f
             setPadding(0, dp(2), 0, 0)
+        })
+    }
+
+    private fun enlaceFoto(etiqueta: String, ruta: String) {
+        binding.contDetalle.addView(TextView(this).apply {
+            text = etiqueta
+            setTextColor(Color.parseColor("#4C7EBF"))
+            textSize = 13f
+            setTypeface(typeface, Typeface.BOLD)
+            setPadding(0, dp(10), 0, 0)
+            setOnClickListener {
+                val base = session.baseUrl.trimEnd('/')
+                val url = "$base/${ruta.trimStart('/')}"
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                } catch (e: Exception) {
+                    Toast.makeText(this@DetalleInspeccionActivity, "No se pudo abrir la foto.", Toast.LENGTH_SHORT).show()
+                }
+            }
         })
     }
 
