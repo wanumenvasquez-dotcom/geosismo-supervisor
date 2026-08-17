@@ -112,18 +112,106 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <!-- Próximamente (Fase 2 y 3) -->
+            <!-- Gestión de usuarios -->
             <LinearLayout
+                android:id="@+id/cardUsuarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/bg_action_card_deshabilitada"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
                 android:padding="16dp"
-                android:alpha="0.7">
+                android:layout_marginBottom="10dp">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/home_proximamente_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                    android:text="@string/home_usuarios_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/home_proximamente_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+                    android:text="@string/home_usuarios_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Auditoría de evaluaciones -->
+            <LinearLayout
+                android:id="@+id/cardEvaluaciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_evaluaciones_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_evaluaciones_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Moderación de reportes -->
+            <LinearLayout
+                android:id="@+id/cardReportesMod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_reportes_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_reportes_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Exportar datos -->
+            <LinearLayout
+                android:id="@+id/cardExportar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_exportar_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_exportar_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Centro de datos -->
+            <LinearLayout
+                android:id="@+id/cardDashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_dashboard_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_dashboard_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Inspecciones técnicas -->
+            <LinearLayout
+                android:id="@+id/cardInspecciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_action_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp"
+                android:layout_marginBottom="10dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_inspecciones_titulo" android:textStyle="bold" android:textSize="16sp" android:textColor="@color/ink" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/home_inspecciones_desc" android:textSize="13sp" android:textColor="@color/gris_texto" android:layout_marginTop="4dp" />
             </LinearLayout>
 
         </LinearLayout>

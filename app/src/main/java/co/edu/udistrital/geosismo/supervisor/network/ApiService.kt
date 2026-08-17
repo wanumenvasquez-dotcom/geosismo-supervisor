@@ -1,23 +1,31 @@
 package co.edu.udistrital.geosismo.supervisor.network
 
+import co.edu.udistrital.geosismo.supervisor.network.model.CambiarRolResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.CertificarEvaluacionResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ConteoPendientesResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ConteoSolicitudesPendientesResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ListaEvaluacionesResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ListaReportesAdminResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ListaSolicitudesResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ListaUsuariosResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.LoginResponse
+import co.edu.udistrital.geosismo.supervisor.network.model.ModeracionResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ResolverVoluntarioResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.ResponderSolicitudResponse
 import co.edu.udistrital.geosismo.supervisor.network.model.VoluntariosPendientesResponse
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
+import retrofit2.http.Streaming
 
 /**
- * Coincide con los endpoints existentes de GeoSismo UD:
- * api/auth.php (login), api/admin.php (voluntarios) y api/solicitudes.php
- * (bandeja de contacto). No requiere ningún otro cambio en el servidor.
+ * Coincide con los endpoints existentes de GeoSismo UD: api/auth.php,
+ * api/admin.php y api/solicitudes.php. No requiere ningún otro cambio
+ * en el servidor.
  */
 interface ApiService {
 
@@ -28,6 +36,8 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Response<LoginResponse>
+
+    // ---------------- Voluntarios (Fase 1) ----------------
 
     @GET("api/admin.php")
     suspend fun voluntariosPendientes(
@@ -46,6 +56,70 @@ interface ApiService {
     suspend fun conteoPendientes(
         @Query("accion") accion: String = "conteo_pendientes"
     ): Response<ConteoPendientesResponse>
+
+    // ---------------- Gestión de usuarios (Fase 2) ----------------
+
+    @GET("api/admin.php")
+    suspend fun usuariosTodos(
+        @Query("accion") accion: String = "usuarios_todos",
+        @Query("rol") rol: String? = null
+    ): Response<ListaUsuariosResponse>
+
+    @FormUrlEncoded
+    @POST("api/admin.php")
+    suspend fun cambiarRol(
+        @Field("accion") accion: String = "cambiar_rol",
+        @Field("usuario_id") usuarioId: Int,
+        @Field("nuevo_rol") nuevoRol: String
+    ): Response<CambiarRolResponse>
+
+    // ---------------- Auditoría de evaluaciones (Fase 2) ----------------
+
+    @GET("api/admin.php")
+    suspend fun evaluacionesTodas(
+        @Query("accion") accion: String = "evaluaciones_todas",
+        @Query("estado_auditoria") estadoAuditoria: String? = null
+    ): Response<ListaEvaluacionesResponse>
+
+    @FormUrlEncoded
+    @POST("api/admin.php")
+    suspend fun certificarEvaluacion(
+        @Field("accion") accion: String = "certificar_evaluacion",
+        @Field("evaluacion_id") evaluacionId: Int,
+        @Field("decision") decision: String,
+        @Field("comentario") comentario: String
+    ): Response<CertificarEvaluacionResponse>
+
+    // ---------------- Moderación de reportes (Fase 3) ----------------
+
+    @GET("api/admin.php")
+    suspend fun reportesTodos(
+        @Query("accion") accion: String = "reportes_todos",
+        @Query("estado") estado: String? = null
+    ): Response<ListaReportesAdminResponse>
+
+    @FormUrlEncoded
+    @POST("api/admin.php")
+    suspend fun cambiarEstadoReporte(
+        @Field("accion") accion: String = "cambiar_estado_reporte",
+        @Field("reporte_id") reporteId: Int,
+        @Field("nuevo_estado") nuevoEstado: String
+    ): Response<ModeracionResponse>
+
+    @FormUrlEncoded
+    @POST("api/admin.php")
+    suspend fun eliminarReporte(
+        @Field("accion") accion: String = "eliminar_reporte",
+        @Field("reporte_id") reporteId: Int
+    ): Response<ModeracionResponse>
+
+    // ---------------- Exportar CSV (Fase 3) ----------------
+
+    @Streaming
+    @GET("api/admin.php")
+    suspend fun exportarCsv(
+        @Query("accion") accion: String = "exportar_csv"
+    ): Response<ResponseBody>
 
     // ---------------- Solicitudes de contacto ----------------
 
@@ -74,4 +148,16 @@ interface ApiService {
         @Field("accion") accion: String = "cerrar",
         @Field("id") id: Int
     ): Response<ResponderSolicitudResponse>
+
+    // ---------------- Centro de datos ----------------
+
+    @GET("api/estadisticas.php")
+    suspend fun estadisticas(): Response<co.edu.udistrital.geosismo.supervisor.network.model.EstadisticasResponse>
+
+    // ---------------- Inspecciones técnicas (protocolo de 8 pasos) ----------------
+
+    @GET("api/inspecciones.php")
+    suspend fun todasLasInspecciones(
+        @Query("accion") accion: String = "todas"
+    ): Response<co.edu.udistrital.geosismo.supervisor.network.model.ListaInspeccionesResponse>
 }

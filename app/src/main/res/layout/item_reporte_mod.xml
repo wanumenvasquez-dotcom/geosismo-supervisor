@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="14dp"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/txtCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textSize="11sp"
+        android:textColor="@color/gris_texto" />
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/ink"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/txtMeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/gris_texto"
+        android:layout_marginTop="2dp" />
+
+    <TextView
+        android:id="@+id/pillEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_pill_neutro"
+        android:textSize="11sp"
+        android:textColor="@color/gris_texto"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="3dp"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

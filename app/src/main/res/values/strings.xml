@@ -18,8 +18,20 @@
     <string name="home_subtitulo">Herramientas para el ingeniero experto que valida el trabajo de campo</string>
     <string name="home_voluntarios_titulo">✅ Aprobar voluntarios</string>
     <string name="home_voluntarios_desc">Revisa y resuelve las postulaciones de ingenieros de campo pendientes</string>
-    <string name="home_proximamente_titulo">🔒 Próximamente</string>
-    <string name="home_proximamente_desc">Auditoría de evaluaciones, gestión de usuarios, moderación de reportes y exportación de datos</string>
+    <string name="home_usuarios_titulo">👥 Gestión de usuarios</string>
+    <string name="home_usuarios_desc">Consulta todos los usuarios y cambia sus roles</string>
+    <string name="home_evaluaciones_titulo">🔍 Auditoría de evaluaciones</string>
+    <string name="home_evaluaciones_desc">Certifica u objeta el trabajo técnico de los ingenieros</string>
+    <string name="home_reportes_titulo">🗂️ Moderación de reportes</string>
+    <string name="home_reportes_desc">Cambia el estado o elimina reportes duplicados/falsos</string>
+    <string name="home_exportar_titulo">📤 Exportar datos</string>
+    <string name="home_exportar_desc">Descarga todos los reportes y evaluaciones en CSV</string>
+    <string name="home_dashboard_titulo">📊 Centro de datos</string>
+    <string name="home_dashboard_desc">Estadísticas generales del evento</string>
+    <string name="home_inspecciones_titulo">📋 Inspecciones técnicas</string>
+    <string name="home_inspecciones_desc">Revisa las inspecciones de 8 pasos registradas por los ingenieros</string>
+    <string name="inspecciones_titulo">Inspecciones técnicas</string>
+    <string name="inspecciones_vacio">Aún no hay inspecciones técnicas registradas.</string>
 
     <!-- Voluntarios pendientes -->
     <string name="voluntarios_titulo">Postulaciones pendientes</string>
@@ -28,6 +40,29 @@
     <string name="voluntarios_rechazar">Rechazar</string>
     <string name="voluntarios_confirmar_aprobar">¿Aprobar a %1$s como ingeniero voluntario? Podrá evaluar reportes en la app de campo de inmediato.</string>
     <string name="voluntarios_confirmar_rechazar">¿Rechazar la postulación de %1$s? Esta acción no se puede deshacer.</string>
+
+    <!-- Usuarios -->
+    <string name="usuarios_titulo">Gestión de usuarios</string>
+    <string name="usuarios_vacio">No hay usuarios para mostrar.</string>
+    <string name="usuarios_cambiar_rol">Cambiar rol</string>
+    <string name="usuarios_confirmar_cambio">¿Cambiar el rol de %1$s a \'%2$s\'?</string>
+
+    <!-- Evaluaciones -->
+    <string name="evaluaciones_titulo">Auditoría de evaluaciones</string>
+    <string name="evaluaciones_vacio">No hay evaluaciones para mostrar.</string>
+    <string name="evaluaciones_certificar">Certificar</string>
+    <string name="evaluaciones_objetar">Objetar</string>
+
+    <!-- Moderación de reportes -->
+    <string name="reportes_mod_titulo">Moderación de reportes</string>
+    <string name="reportes_mod_vacio">No hay reportes para mostrar.</string>
+    <string name="reportes_mod_eliminar">Eliminar reporte</string>
+    <string name="reportes_mod_confirmar_eliminar">¿Eliminar permanentemente el reporte %1$s? Se borrarán también sus fotos y evaluaciones. Esta acción NO se puede deshacer.</string>
+
+    <!-- Exportar -->
+    <string name="exportar_titulo">Exportar datos</string>
+    <string name="exportar_desc">Genera un archivo CSV con todos los reportes y sus evaluaciones técnicas, listo para abrir en Excel o Google Sheets.</string>
+    <string name="exportar_boton">Generar y compartir CSV</string>
 
     <!-- Ajustes -->
     <string name="ajustes_titulo">Ajustes</string>

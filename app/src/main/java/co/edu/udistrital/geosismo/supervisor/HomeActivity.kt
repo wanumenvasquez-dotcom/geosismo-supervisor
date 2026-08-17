@@ -34,6 +34,24 @@ class HomeActivity : AppCompatActivity() {
         binding.cardSolicitudes.setOnClickListener {
             startActivity(Intent(this, SolicitudesActivity::class.java))
         }
+        binding.cardUsuarios.setOnClickListener {
+            startActivity(Intent(this, UsuariosActivity::class.java))
+        }
+        binding.cardEvaluaciones.setOnClickListener {
+            startActivity(Intent(this, EvaluacionesActivity::class.java))
+        }
+        binding.cardReportesMod.setOnClickListener {
+            startActivity(Intent(this, ReportesModeracionActivity::class.java))
+        }
+        binding.cardExportar.setOnClickListener {
+            startActivity(Intent(this, ExportarActivity::class.java))
+        }
+        binding.cardDashboard.setOnClickListener {
+            startActivity(Intent(this, DashboardActivity::class.java))
+        }
+        binding.cardInspecciones.setOnClickListener {
+            startActivity(Intent(this, InspeccionesActivity::class.java))
+        }
     }
 
     override fun onResume() {
