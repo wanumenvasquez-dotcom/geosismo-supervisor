@@ -104,6 +104,15 @@ data class CambiarRolResponse(
     val error: String? = null
 )
 
+data class EliminarUsuarioResponse(
+    val ok: Boolean,
+    val mensaje: String? = null,
+    val error: String? = null,
+    val reportes_reasignados: Int = 0,
+    val reportes_eliminados: Int = 0,
+    val archivos_borrados: Int = 0
+)
+
 // ------------------------------------------------------------------
 // Auditoría de evaluaciones
 // ------------------------------------------------------------------

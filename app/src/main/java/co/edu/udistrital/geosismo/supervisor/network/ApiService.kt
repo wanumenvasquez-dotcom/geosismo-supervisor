@@ -37,6 +37,11 @@ interface ApiService {
         @Field("password") password: String
     ): Response<LoginResponse>
 
+    @GET("api/auth.php")
+    suspend fun logout(
+        @Query("accion") accion: String = "logout"
+    ): Response<ResponseBody>
+
     // ---------------- Voluntarios (Fase 1) ----------------
 
     @GET("api/admin.php")
@@ -126,6 +131,22 @@ interface ApiService {
     suspend fun exportarCsv(
         @Query("accion") accion: String = "exportar_csv"
     ): Response<ResponseBody>
+
+    // ---------------- Exportar y eliminar usuario de forma segura ----------------
+
+    @Streaming
+    @GET("api/admin.php")
+    suspend fun exportarUsuario(
+        @Query("accion") accion: String = "exportar_usuario",
+        @Query("id") id: Int
+    ): Response<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("api/admin.php")
+    suspend fun eliminarUsuarioSeguro(
+        @Field("accion") accion: String = "eliminar_usuario_seguro",
+        @Field("id") id: Int
+    ): Response<co.edu.udistrital.geosismo.supervisor.network.model.EliminarUsuarioResponse>
 
     // ---------------- Solicitudes de contacto ----------------
 

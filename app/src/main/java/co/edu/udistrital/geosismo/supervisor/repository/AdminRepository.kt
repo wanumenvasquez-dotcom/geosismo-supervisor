@@ -30,6 +30,21 @@ class AdminRepository(private val context: Context) {
     private val api get() = ApiClient.getApiService(context)
     private val session = SessionManager(context)
 
+    /**
+     * Cierra la sesión también en el servidor (session_destroy en PHP),
+     * no solo en el celular — así la cookie guardada deja de ser válida
+     * de inmediato, no hasta que expire en 7 días.
+     */
+    suspend fun logout() {
+        withContext(Dispatchers.IO) {
+            try {
+                api.logout()
+            } catch (e: Exception) {
+                // Sin conexión: no bloquea el cierre de sesión local.
+            }
+        }
+    }
+
     suspend fun login(email: String, password: String): ResultadoLogin = withContext(Dispatchers.IO) {
         try {
             val resp = api.login(email = email, password = password)
@@ -241,6 +256,60 @@ class AdminRepository(private val context: Context) {
                 FileOutputStream(destino).use { salida -> entrada.copyTo(salida) }
             }
             Resultado.Exito(destino)
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // Exportar y eliminar usuario de forma segura
+    // ------------------------------------------------------------------
+
+    /** Descarga el .zip con TODO lo que ha hecho este usuario, antes de eliminarlo. */
+    suspend fun exportarUsuario(usuarioId: Int, nombreUsuario: String): Resultado<File> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.exportarUsuario(id = usuarioId)
+            if (!resp.isSuccessful) {
+                return@withContext Resultado.Fallo(resp.mensajeDeError() ?: "No se pudo generar el respaldo (código ${resp.code()}).")
+            }
+            val cuerpo = resp.body() ?: return@withContext Resultado.Fallo("El servidor no devolvió ningún archivo.")
+
+            val carpeta = File(context.getExternalFilesDir(null), "exportados")
+            if (!carpeta.exists()) carpeta.mkdirs()
+            val nombreLimpio = nombreUsuario.replace(Regex("[^a-zA-Z0-9]+"), "_")
+            val destino = File(carpeta, "usuario_${nombreLimpio}_${System.currentTimeMillis()}.zip")
+
+            cuerpo.byteStream().use { entrada ->
+                FileOutputStream(destino).use { salida -> entrada.copyTo(salida) }
+            }
+            Resultado.Exito(destino)
+        } catch (e: Exception) {
+            Resultado.Fallo(ErrorRed.explicar(e))
+        }
+    }
+
+    /**
+     * Elimina un usuario y todo su contenido de forma segura. Debe
+     * llamarse SIEMPRE después de exportarUsuario() — el servidor no
+     * exige el respaldo como requisito técnico, pero la app sí obliga
+     * ese orden desde la interfaz para proteger al administrador de un
+     * borrado accidental sin respaldo.
+     */
+    suspend fun eliminarUsuarioSeguro(usuarioId: Int): Resultado<String> = withContext(Dispatchers.IO) {
+        try {
+            val resp = api.eliminarUsuarioSeguro(id = usuarioId)
+            val body = resp.body()
+            if (resp.isSuccessful && body?.ok == true) {
+                val detalle = buildString {
+                    append(body.mensaje ?: "Usuario eliminado.")
+                    if (body.reportes_reasignados > 0) append(" ${body.reportes_reasignados} reporte(s) con aportes de otras personas se conservaron.")
+                    if (body.reportes_eliminados > 0) append(" ${body.reportes_eliminados} reporte(s) propio(s) se eliminaron.")
+                    if (body.archivos_borrados > 0) append(" ${body.archivos_borrados} archivo(s) borrado(s) del servidor.")
+                }
+                Resultado.Exito(detalle)
+            } else {
+                Resultado.Fallo(resp.mensajeDeError() ?: body?.error ?: "No se pudo eliminar el usuario.")
+            }
         } catch (e: Exception) {
             Resultado.Fallo(ErrorRed.explicar(e))
         }
